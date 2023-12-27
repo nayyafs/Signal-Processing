@@ -30,22 +30,22 @@ X_shifted = fftshift(X);
 % Mendapatkan magnitude dari spektrum
 X_magnitude = abs(X_shifted);
 
-% Hitung vektor frekuensi analog dan digital
-f_digital = linspace(-Fs/2, Fs/2, length(x_windowed)); % vektor frekuensi digital
-f_analog = f_digital * Fs; % vektor frekuensi analog
+% Membuat vektor frekuensi analog
+f = (-L/2 : L/2-1) * Fs / L;
 
-% Plot spektrum dengan frekuensi analog
-figure;
-stem(f_analog, X_magnitude);
-xlabel('Frekuensi (siklus per sampel)');
-ylabel('Magnitude');
-title('Spektrum Sinyal dalam Frekuensi Analog');
-grid on;
+% Membuat vektor frekuensi digital (siklus per sampel)
+f_digital = f / Fs;
 
-% Plot spektrum dengan frekuensi digital
-figure;
-stem(f_digital, X_magnitude);
-xlabel('Frekuensi (radian per sampel)');
-ylabel('Magnitude');
-title('Spektrum Sinyal dalam Frekuensi Digital');
-grid on;
+% Membuat plot magnitude vs frekuensi analog
+figure(1)
+plot(f, X_magnitude)
+xlabel('Frekuensi (Hz)')
+ylabel('Magnitude')
+title('Spektrum FFT dalam Frekuensi Analog')
+
+% Membuat plot magnitude vs frekuensi digital
+figure(2)
+plot(f_digital, X_magnitude)
+xlabel('Frekuensi (siklus per sampel)')
+ylabel('Magnitude')
+title('Spektrum FFT dalam Frekuensi Digital')
