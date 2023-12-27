@@ -1,0 +1,21 @@
+close all;clc;
+% sinyal x[n]
+n = 0:99; % Vektor indeks n dari 0 sampai 99
+x1 = cos(2*pi*n/10); % Komponen x1(n)
+x2 = 0.1*cos(2*pi*1.05*n/10); % Komponen x2(n)
+x3 = 0.001*cos(2*pi*1.11*n/10); % Komponen x3(n)
+x = 0.5 + x1 + x2 + x3; % Sinyal x(n)
+
+
+% Tampilkan dan diskusikan N-DFT spektrum X(F)
+L = 100; % Panjang sinyal L samples (N=L)
+w = rectwin(L)'; % Jendela rektangular
+xw = x(1:L) .* w; % Mengalikan sinyal dengan jendela
+X = fft(xw); % Menghitung N-DFT
+F = (-L/2:L/2-1)*(1/L); % Sumbu frekuensi dalam satuan frekuensi analog F
+F = F/(2*pi); % Mengubah satuan frekuensi menjadi radian/detik
+stem(F, fftshift(abs(X))); % Plot magnitude N-DFT terhadap F
+xlabel('Frekuensi Digital F (rad/dt)'); % Label sumbu x
+ylabel('|X(F)|'); % Label sumbu y
+title('Magnitude N-DFT dari x(n)'); % Judul plot
+
