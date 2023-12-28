@@ -23,7 +23,12 @@ Fs = 1; % Frekuensi sampling adalah 1 sampel per detik
 
 % N-DFT
 N = 128; % Nilai N yang diinginkan
-X = fft(x_windowed, N); % Melakukan fft dengan zero padding
+
+% Menambahkan nol sebanyak N-L di akhir sinyal
+x_padded = [x_windowed zeros(1, N-L)];
+
+% Melakukan fft 
+X = fft(x_padded);
 
 % Menggeser spektrum setelah fft
 X_shifted = fftshift(X);
