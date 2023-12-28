@@ -1,4 +1,3 @@
-
 % Program untuk menampilkan fft dalam frekuensi analog dan digital
 close all;clc;
 
@@ -22,15 +21,9 @@ x_windowed = x .* rect_window;
 % Frekuensi sampling
 Fs = 1; % Frekuensi sampling adalah 1 sampel per detik
 
-% Menambahkan zero padding
-pad_size = round(100*Fs); % Jumlah nol yang ditambahkan
-x_padded = padarray(x_windowed, [0, pad_size], 0); % Menambahkan nol sebelum dan sesudah sinyal
-
-% Menggeser sinyal sebelum fft
-x_padded = fftshift(x_padded);
-
 % N-DFT
-X = fft(x_padded);
+N = 128; % Nilai N yang diinginkan
+X = fft(x_windowed, N); % Melakukan fft dengan zero padding
 
 % Menggeser spektrum setelah fft
 X_shifted = fftshift(X);
@@ -38,22 +31,22 @@ X_shifted = fftshift(X);
 % Mendapatkan magnitude dari spektrum
 X_magnitude = abs(X_shifted);
 
-% Hitung vektor frekuensi analog dan digital
-f_digital = linspace(-Fs/2, Fs/2, length(x_padded)); % vektor frekuensi digital
-f_analog = f_digital * Fs; % vektor frekuensi analog
+% Membuat vektor frekuensi analog
+f = (-N/2 : N/2-1) * Fs / N;
 
-% Plot spektrum dengan frekuensi analog
-figure;
-stem(f_analog, X_magnitude);
-xlabel('Frekuensi (siklus per sampel)');
-ylabel('Magnitude');
-title('Spektrum Sinyal dalam Frekuensi Analog');
-grid on;
+% Membuat vektor frekuensi digital (siklus per sampel)
+f_digital = f / Fs;
 
-% Plot spektrum dengan frekuensi digital
-figure;
-stem(f_digital, X_magnitude);
-xlabel('Frekuensi (radian per sampel)');
-ylabel('Magnitude');
-title('Spektrum Sinyal dalam Frekuensi Digital');
-grid on;
+% Membuat plot magnitude vs frekuensi analog
+figure(1)
+stem(f, X_magnitude)
+xlabel('Frekuensi (Hz)')
+ylabel('Magnitude')
+title('Spektrum FFT dalam Frekuensi Analog')
+
+% Membuat plot magnitude vs frekuensi digital
+figure(2)
+stem(f_digital, X_magnitude)
+xlabel('Frekuensi (siklus per sampel)')
+ylabel('Magnitude')
+title('Spektrum FFT dalam Frekuensi Digital')
