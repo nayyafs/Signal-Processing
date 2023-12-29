@@ -39,6 +39,12 @@ title('Respon Frekuensi Filter (dB)');
 xlabel('Frekuensi (Hz)');
 ylabel('Amplitudo (dB)');
 
+% Plot respon fasa filter.
+figure;
+plot(Freq, angle(H));
+title('Respon Fasa Filter');
+xlabel('Frekuensi (Hz)');
+ylabel('Fasa (radian)');
 
 % Plot sinyal asli (input).
 figure;

@@ -37,6 +37,12 @@ title('Respon Frekuensi Filter (dB)');
 xlabel('Frekuensi (Hz)');
 ylabel('Amplitudo (dB)');
 
+% Plot respon fasa filter.
+figure;
+plot(Freq, angle(H));
+title('Respon Fasa Filter');
+xlabel('Frekuensi (Hz)');
+ylabel('Fasa (radian)');
 
 % Plot sinyal asli (input).
 figure;
@@ -54,11 +60,11 @@ title('Sinyal Output Setelah Filter Bandpass');
 xlabel('Waktu (s)');
 ylabel('Amplitudo (linear)');
 
-% Filter data untuk t < 700.
+% Filter data untuk t > 1000.
 t_filtered = t(t > 1000);
 output_filtered = filtered_signal(t > 1000);
 
-% Plot sinyal asli (input) hanya untuk t < 700.
+% Plot sinyal asli (input) hanya untuk t > 1000.
 figure;
 plot(t_filtered, output_filtered);
 title('Sinyal output untuk t > 1000');
