@@ -13,9 +13,6 @@ win = chebwin(N+1, SidelobeAtten);
 b  = fir1(N, [Fc1 Fc2]/(Fs/2), 'bandpass', win, flag);
 Hd = dfilt.dffir(b);
 
-% Menghitung respon frekuensi filter menggunakan freqz.
-[H, Freq] = freqz(b, 1, 1024, fs);
-
 %implementasi filter dengan DFT
 n = 1:1000;
 x = 0.5 + cos(2*pi*n/10) + 0.1*cos(2*pi*1.05*n/10)+0.001*cos(2*pi*1.11*n/10); 
