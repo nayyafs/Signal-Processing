@@ -88,7 +88,7 @@ xlabel('Frekuensi (Hz)');
 ylabel('Amplitudo (linear)');
 
 % Menghitung respon impuls filter menggunakan impz.
-impulse_response = impz(Hd, 500);
+impulse_response = impz(Hd);
 
 % Plot respon impuls filter.
 figure;
@@ -98,7 +98,7 @@ xlabel('Sampel');
 ylabel('Amplitudo');
 
 % Menghitung respon step filter menggunakan stepz.
-step_response = stepz(Hd, 500);
+step_response = stepz(Hd);
 
 % Plot respon step filter.
 figure;
@@ -106,28 +106,3 @@ plot(step_response);
 title('Respon Step Filter');
 xlabel('Sampel');
 ylabel('Amplitudo');
-
-%{
-% Convert IIR filter to FIR filter
-win = chebwin(100*N+1, SidelobeAtten);
-flag = 'scale';
-SidelobeAtten = 40;
-b_fir = fir1(100*N, [Fc1 Fc2]/(Fs/2), 'bandpass', win, flag);
-
-% Get impulse response of the FIR filter
-impulse_response_fir = impz(b_fir);
-
-% Plot impulse response of the FIR filter
-figure;
-stem(impulse_response_fir);
-title('Impulse Response of FIR Filter');
-xlabel('Sample');
-ylabel('Amplitude');
-
-% Plot step response of the FIR filter
-figure;
-step_response_fir = cumsum(impulse_response_fir);
-plot(step_response_fir);
-title('Step Response of FIR Filter');
-xlabel('Sample');
-ylabel('Amplitude');
